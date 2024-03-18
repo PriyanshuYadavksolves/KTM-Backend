@@ -206,6 +206,8 @@ exports.forgotPassword = async (req, res) => {
   } catch (error) {
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
+    user.otp = undefined
+    user.otpExpires = undefined
     await user.save();
     console.log("error");
     res.send(error);
