@@ -12,6 +12,8 @@ app.use(cors({
 app.use(express.json()); // parse body
 // routes
 app.use('/api', require('./route/auth.js'));
+app.use('/api/tagTrigger',require('./route/tagTrigger.js'))
+app.use('/api/trigger',require('./route/trigger.js'))
 
 app.use('/',(req,res)=>{
     res.json()
