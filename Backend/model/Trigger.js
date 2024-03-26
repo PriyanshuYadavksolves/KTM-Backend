@@ -12,7 +12,8 @@ const TriggerSchema = mongoose.Schema({
     },
     key:String,
     value:String,
-    tag:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }]
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+
 },
 { timestamps: true }
 )

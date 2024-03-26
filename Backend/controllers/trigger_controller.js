@@ -2,24 +2,12 @@ const Trigger = require('../model/Trigger')
 
 //Create Trigger
 exports.createTrigger = async(req,res)=>{
-    const {triggerName, triggerType, key, value } = req.body;
+    const {triggerName, triggerType, key, value,userId } = req.body.data;
     try {
         const trigger = await Trigger.create({
-            triggerName,triggerType,key,value
+            triggerName,triggerType,key,value,userId
         })
         res.status(200).json(trigger)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
-
-//Put tag id in trigger
-exports.addTag = async(req,res)=>{
-    const {id} = req.params
-    const {tagId} = req.body
-    try {
-        const updateTrigger = await Trigger.findByIdAndUpdate(id,{$addToSet:{tag:tagId}},{new:true})
-        res.status(200).json(updateTrigger)
     } catch (error) {
         res.status(500).json(error)
     }
@@ -28,7 +16,6 @@ exports.addTag = async(req,res)=>{
 //Update trigger
 exports.updateTrigger = async(req,res)=>{
     const {id} = req.params
-    console.log(id)
     try {
         const updateTrigger = await Trigger.findByIdAndUpdate(id,{$set:req.body},{new:true})
         console.log(updateTrigger)
@@ -40,8 +27,9 @@ exports.updateTrigger = async(req,res)=>{
 
 //Get All Trigger
 exports.getAllTrigger = async(req,res)=>{
+    const {userId} = req.params
     try {
-        const allTriggers = await Trigger.find({})
+        const allTriggers = await Trigger.find({userId})
         res.status(200).json(allTriggers)
     } catch (error) {
         res.status(500).json(error)
@@ -50,8 +38,9 @@ exports.getAllTrigger = async(req,res)=>{
 
 //Get Count Of All Trigger
 exports.countAllTrigger = async(req,res)=>{
+    const {userId} = req.params
     try {
-        const count = await Trigger.countDocuments({})
+        const count = await Trigger.countDocuments({userId})
         res.status(200).json(count)
     } catch (error) {
         res.status(500).json(error);

@@ -24,6 +24,7 @@ const PORT = 3000
 const main = async() => {
     try {
         await connectDB(process.env.MONGO_URI)
+
         app.listen(PORT, () => {
             console.log("mongoDB connected")
           console.log("listen on 3000.");
@@ -32,5 +33,8 @@ const main = async() => {
       console.log(error)
     }
   }
+
   
   main()
+
+

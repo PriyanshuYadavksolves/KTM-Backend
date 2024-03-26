@@ -22,6 +22,7 @@ const UserSchema = mongoose.Schema({
       passwordResetExpires: Date,
       otp:String,
       otpExpires:Date,
+  
 });
 // UserSchema.pre('save', async function (next) {
 //     // Hash the user password

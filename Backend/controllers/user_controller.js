@@ -75,7 +75,7 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email,password } = req.body.data;
-  // console.log(email,password)
+  console.log(email,password)
   // Check we have an email
   if (!email) {
     return res.status(422).json({
@@ -84,32 +84,37 @@ exports.login = async (req, res) => {
   }
   try {
     // Step 1 - Verify a user with the email exists
+    console.log("hello")
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({
         message: "Email does not exists",
       });
     }
-
+    console.log("hello")
+    
     // step 2 - Ensure Password is correct or not
     const validate = await bcrypt.compare(password,user.password)
     if (!validate) {
       res.status(400).json({message : "wrong credentials!"});
       return;
     }
-
+    console.log("hello")
+    
     // Step 3 - Ensure the account has been verified
     if (!user.verified) {
       return res.status(403).json({
         message: "First Verify your Account.",
       });
     }
-
+    console.log(  process.env.USER_VERIFICATION_TOKEN_SECRET)
+    
     const verificationToken = jwt.sign(
       { ID: user._id },
       process.env.USER_VERIFICATION_TOKEN_SECRET,
       { expiresIn: "7d" }
-    );
+      );
+      console.log("hello")
 
 
     return res.status(200).json({
