@@ -16,8 +16,9 @@ app.use('/api/tagTrigger',require('./route/tagTrigger.js'))
 app.use('/api/trigger',require('./route/trigger.js'))
 
 app.use('/',(req,res)=>{
-    res.json()
+    res.json("hello form ktm backend")
 })
+
 const PORT = 3000
 
 //set up mongoDB connection
